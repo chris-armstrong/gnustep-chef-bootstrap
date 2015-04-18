@@ -6,43 +6,24 @@ subversion_package = value_for_platform(
 package subversion_package
 
 # COMPILER
-clang_binary_versions = value_for_platform(
-	[ 'ubuntu' ] => { '14.04' => [ '3.3', '3.4', '3.5' ] }
-)
-
-clang_binary_default_version = value_for_platform(
-	[ 'ubuntu' ] => { '14.04' => '3.5' },
-	'default' => 'no-binary-available'
-)
-
-clang_binary_package = value_for_platform(
-	[ 'ubuntu' ] =>  { "14.04" => "clang-#{clang_binary_default_version}" },
-	'default' => 'clang-nobinary'
-)
-
-# FIXME: Make this an overridable attribute
-clang_binary_version = clang_binary_default_version
-clang_binary_available = true if clang_binary_package != 'clang-nobinary' 
-
-package clang_binary_package do 
-	only_if { clang_binary_available }
+package node['clang']['binary_package'] do 
+	only_if { node['clang']['binary_available'] }
 end
-
-# FIXME: need to get compiler path based on where clang is installed
-# if we compile from source
-compiler_path = value_for_platform(
-	[ 'ubuntu' ] => { "default" => "clang-#{clang_binary_version}" }
-)
-
-node['gnustep-dev']['compiler'] = compiler_path
 
 # BUILD UTILITIES
 #
 
 make_package = value_for_platform_family(
-	[ 'debian' ] => 'make'
+	[ 'debian' ] => 'make',
+    "default" => "make"
 )
 package make_package
+
+cmake_package = value_for_platform_family(
+    [ 'debian' ] => 'cmake',
+    "default" => "cmake"
+)
+package cmake_package
 
 autoconf_package = value_for_platform_family(
 	[ 'debian' ] => 'autoconf'
@@ -53,6 +34,33 @@ automake_package = value_for_platform_family(
 	[ 'debian' ] => 'automake'
 )
 package automake_package
+
+# BASE DEPENDENCIES
+#
+libffi_package = value_for_platform_family(
+    [ 'debian' ] => 'libffi-dev'
+)
+package libffi_package
+
+libxml2_package = value_for_platform_family(
+    [ 'debian' ] => 'libxml2-dev'
+)
+package libxml2_package
+
+libxslt_package = value_for_platform_family(
+    [ 'debian' ] => 'libxslt1-dev'
+)
+package libxslt_package
+
+libgnutls_package = value_for_platform_family(
+    ['debian'] => 'libgnutls-dev'
+)
+package libgnutls_package
+
+libicu_package = value_for_platform_family(
+    [ 'debian' ] => 'libicu-dev'
+)
+package libicu_package
 
 # GUI DEPENDENCIES
 #

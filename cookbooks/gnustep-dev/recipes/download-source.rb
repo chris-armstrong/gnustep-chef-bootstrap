@@ -3,10 +3,14 @@ require 'date'
 yesterday = DateTime.now().prev_day()
 svn_snapshot_datestring = yesterday.strftime("%Y%m%d")
 
-devel_dir = "/home/vagrant/gnustep"
-node['gnustep']['devel-dir'] = devel_dir
+devel_dir = node['gnustep']['devel_dir']
+devel_user = node['gnustep']['devel_user']
 snapshots_url = "ftp://ftp.gnustep.org/pub/daily-snapshots/"
-directory devel_dir
+
+directory devel_dir do
+    owner devel_user
+    group devel_user
+end
 
 log "downloading snapshot #{svn_snapshot_datestring}"
 
@@ -28,12 +32,16 @@ log "downloading snapshot #{svn_snapshot_datestring}"
 			cd #{module_extract_path}
 			svn upgrade
 		EOH
+        user devel_user
+        group devel_user
 		not_if { ::File.exists?(module_extract_path) }
 	end
 
 	subversion "update_#{module_name}" do
 		destination module_extract_path
 		repository "http://svn.gna.org/svn/gnustep/modules/#{module_name}"
+        user devel_user
+        
 		action :sync
 	end
 
