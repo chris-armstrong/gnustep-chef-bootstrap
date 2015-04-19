@@ -67,7 +67,51 @@ package libicu_package
 jpeg_package = value_for_platform_family(
 	[ 'debian' ] => 'libjpeg62'
 )
-
 package jpeg_package
 
+tiff_package = value_for_platform_family(
+    [ 'debian' ] => 'libtiff5-dev'
+)
+package tiff_package
 
+png_package = value_for_platform_family(
+    [ 'debian' ] => 'libpng12-dev'
+)
+package png_package
+
+cups_package = value_for_platform_family(
+    [ 'debian' ] => 'libcups2-dev'
+)
+package cups_package
+
+# libdispatch is needed by cupsys because libobjc2 defines __BLOCKS__, which
+# triggers (surprise surprise) Apple code in the cups header to include libdispatch, which cups
+# isn't built against on Ubuntu. I don't think this causes any harm, as 
+# gnustep-gui doesn't seem to link against it.
+libdispatch_package = value_for_platform(
+    [ 'ubuntu' ] => { '14.04' => 'libdispatch-dev' },
+    'default' => false
+)
+package libdispatch_package if libdispatch_package
+
+# BACK
+#
+cairo_package = value_for_platform_family(
+    [ 'debian' ] => 'libcairo2-dev'
+)
+package cairo_package
+
+xrender_package = value_for_platform_family(
+    [ 'debian' ] => 'libxrender-dev'
+)
+package xrender_package
+
+xlib_package = value_for_platform_family(
+    [ 'debian' ] => 'libx11-dev'
+)
+package xlib_package
+
+xt_package = value_for_platform_family(
+    [ 'debian' ] => 'libxt-dev'
+)
+package xt_package

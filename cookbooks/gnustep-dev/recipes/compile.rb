@@ -79,3 +79,29 @@ bash 'compile-base' do
     user devel_user
     group devel_user
 end
+
+bash 'compile-gui' do
+    cwd gnustep_gui_code_path
+    code <<-EOH
+        . #{gnustep_sh}
+        export "CC=#{compiler_path}"
+        
+        ./configure 
+        #{make_path} && sudo -E #{make_path} install
+    EOH
+    user devel_user
+    group devel_user
+end
+
+bash 'compile-back' do
+    cwd gnustep_back_code_path
+    code <<-EOH
+        . #{gnustep_sh}
+        export "CC=#{compiler_path}"
+        
+        ./configure 
+        #{make_path} && sudo -E #{make_path} install
+    EOH
+    user devel_user
+    group devel_user
+end
