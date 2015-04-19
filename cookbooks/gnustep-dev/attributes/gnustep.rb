@@ -1,5 +1,5 @@
 # devel_user: The development user to setup
-default['gnustep']['devel_user'] = "vagrant"
+default['gnustep']['devel_user'] = "dev"
 
 # devel_dir: the directory gnustep sources will be checked out and built
 default['gnustep']['devel_dir'] = "/home/#{default['gnustep']['devel_user']}/gnustep"
