@@ -1,6 +1,6 @@
 # gnustep-dev
 
-Configures a GNUstep development environment. Installs required packages, downloads source code snapshots from SVN and then compiles and installs the GNUstep libraries. It also creates a user called 'dev' and configures and installs the XWindow System with Window Maker as window manager and XDM for login.
+This cookbook configures a GNUstep development environment. Installs required packages, downloads source code snapshots from SVN and then compiles and installs the GNUstep libraries. It also creates a user called 'dev' and configures and installs the XWindow System with Window Maker as window manager and XDM for login.
 
 ''It is strongly recommended that you do not use this cookbook on production systems - use a VM (such as with the accompanying Vagrantfiles)''
 
@@ -26,6 +26,8 @@ Password: stepper1
 
 ## License
 
+    Copyright (C) Chris Armstrong 2015.
+    
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
