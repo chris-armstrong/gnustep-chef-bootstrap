@@ -1,7 +1,6 @@
 # gnustep-chef-bootstrap
 
-This is a Vagrant configuration together with a Chef cookbook for creating a GNUstep virtual machine suitable for development. It currently only supports
-Ubuntu 14.04 with x86_64. It will download a template virtual machine, and then configure the prerequisite packages before downloading and compiling the
+This is a Vagrant configuration together with a Chef cookbook for creating a GNUstep virtual machine suitable for development. It currently only supports a guest of Ubuntu 14.04 with x86_64. It will download a template virtual machine, and then configure the prerequisite packages before downloading and compiling the
 GNUstep source code. It also creates a development user and installs XWindows with Window Maker window manager for use.
 
 ## Getting Started
@@ -16,17 +15,18 @@ fails. If you do plan to use an existing Ubuntu virtual machine, take a snapshot
 
 Do not bootstrap the Chef cookbook on your day-to-day workstation - if anything goes wrong, there is no "undo" script. It also creates a user with a well-defined password, which an insecure configuration for a workstation environment. 
 
-## Supported OSs
+## Supported Guest OSs
 
 At the moment, it only supports Ubuntu 14.04 Trusty x86_64. There are plans to support more Linux versions and other operating systems. Other Linux variants
 (and Ubuntu versions) will simply fail at this point in time.
 
-## Requirements
+## Requirements for Host
 
 * Vagrant (http://www.vagrantup.com/downloads.html)
 * Oracle VirtualBox (https://www.virtualbox.org/wiki/Downloads)
 * At least 3.5GB free disk space
 * 1GB RAM for the virtual machine
+* Windows, Linux or MacOS X
 * Broadband internet connection (and if data limited, be aware that several hundred megabytes of data will be downloaded)
 
 Both of the above are only available on Windows, Linux and MacOS X (VirtualBox supports more platforms, but you would not be able to use Vagrant to 
@@ -39,22 +39,27 @@ The cookbook is tested to run in chef-client local mode - you shouldn't require 
 
 ## Usage (Vagrant+Chef)
 
-1. Install Vagrant on your workstation
-2. Install VirtualBox on your workstation
+1. Install Vagrant on your host workstation
+2. Install VirtualBox on your host workstation
 3. At the command line, execute:
+
         ```
         cd gnustep-chef-bootstrap/ubuntu/14.04/x86_64
         vagrant up
         ```
-    The `vagrant up` command will download a template VM from the Vagrant Atlas repository, then start it up, install chef and begin the provisioning with the 
-    cookbooks/gnustep-dev chef cookbook. It also creates a 'dev' user for performing development with.
+
+    The `vagrant up` command will download a template VM from the Vagrant Atlas repository, then start it up, install chef, and then begin the provisioning with the cookbooks/gnustep-dev chef cookbook. It also creates a 'dev' user for performing development with.
+
 4. The Vagrantfile is configured to show the VirtualBox VM window (by default it is hidden). You can switch to a virtual terminal and login as the 'dev' user (
 be warned that *this user has nopasswd sudo access*)
-   * Username: dev
-   * Password: stepper1
+   
+   Username: dev
+   Password: stepper1
+
 5. The VM installs X Windows and a window manager (Window Maker). If you reboot the VM (or run "sudo service xdm start"), you can login using XDM instead
 of at a virtual terminal.
 6. If you ever need to SSH to the VM to perform admin, you can run the following command to SSH in.
+
         ```
         vagrant ssh
         ```
