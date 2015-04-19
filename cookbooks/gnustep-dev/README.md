@@ -17,8 +17,8 @@ cd cookbooks/gnustep-dev
 sudo chef-client -z -o gnustep-dev
 
 After the cookbook has executed, a new user called "dev" is created. You can login using the credentials:
-Username: dev
-Password: stepper1
+  Username: dev
+  Password: stepper1
 
 ## Supported platforms
 
