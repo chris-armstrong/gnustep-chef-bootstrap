@@ -2,7 +2,7 @@
 
 This cookbook configures a GNUstep development environment. Installs required packages, downloads source code snapshots from SVN and then compiles and installs the GNUstep libraries. It also creates a user called 'dev' and configures and installs the XWindow System with Window Maker as window manager and XDM for login.
 
-''It is strongly recommended that you do not use this cookbook on production systems - use a VM (such as with the accompanying Vagrantfiles)''
+*It is strongly recommended that you do not use this cookbook on production systems - use a VM (such as with the accompanying Vagrantfiles)*
 
 ## Prerequisites
 
@@ -12,13 +12,16 @@ This cookbook configures a GNUstep development environment. Installs required pa
 ## Usage
 
 This cookbook is designed to be used from one of the Vagrantfiles above this cookbook directory. Otherwise, it should be executed locally using chef-client:
-
+```
 cd cookbooks/gnustep-dev
 sudo chef-client -z -o gnustep-dev
+```
 
 After the cookbook has executed, a new user called "dev" is created. You can login using the credentials:
+```
   Username: dev
   Password: stepper1
+```
 
 ## Supported platforms
 

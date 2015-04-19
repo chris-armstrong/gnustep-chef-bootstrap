@@ -39,22 +39,27 @@ The cookbook is tested to run in chef-client local mode - you shouldn't require 
 
 ## Usage (Vagrant+Chef)
 
-Assuming you are using Vagrant with VirtualBox:
 1. Install Vagrant on your workstation
 2. Install VirtualBox on your workstation
 3. At the command line, execute:
-`cd gnustep-chef-bootstrap/ubuntu/14.04/x86_64
-vagrant up`
+```
+cd gnustep-chef-bootstrap/ubuntu/14.04/x86_64
+vagrant up
+```
 The `vagrant up` command will download a template VM from the Vagrant Atlas repository, then start it up, install chef and begin the provisioning with the 
 cookbooks/gnustep-dev chef cookbook. It also creates a 'dev' user for performing development with.
 4. The Vagrantfile is configured to show the VirtualBox VM window (by default it is hidden). You can switch to a virtual terminal and login as the 'dev' user (
 be warned that *this user has nopasswd sudo access*)
+```
   Username: dev
   Password: stepper1
+```
 5. The VM installs X Windows and a window manager (Window Maker). If you reboot the VM (or run "sudo service xdm start"), you can login using XDM instead
 of at a virtual terminal.
 6. If you ever need to SSH to the VM to perform admin, you can run the following command to SSH in.
-`vagrant ssh`
+```
+vagrant ssh
+```
 
 ## Usage (Chef cookbook only)
 
@@ -62,12 +67,15 @@ If you just want to run this on an existing Ubuntu 14.04 installation, you can i
 sudo access):
 
 1. Install chef
-`curl -L https://www.chef.io/chef/install.sh | sudo bash`
+```
+curl -L https://www.chef.io/chef/install.sh | sudo bash
+```
 2. Use git to download the cookbook or extract it from a zip file
 3. Run the cookbook using chef-client local mode
-`cd cookbooks/gnustep-dev
+```
+cd cookbooks/gnustep-dev
 sudo chef-client --local-mode -o gnustep-dev
-`
+```
 
 ## License
 
