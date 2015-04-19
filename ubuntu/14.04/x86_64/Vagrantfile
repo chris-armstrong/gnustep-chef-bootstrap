@@ -69,5 +69,7 @@ Vagrant.configure(2) do |config|
     sudo apt-get update
     sudo apt-get dist-upgrade -y 
     curl -L https://www.chef.io/chef/install.sh | sudo bash
+    cd /cookbooks/gnustep-dev
+    sudo chef-client --local-mode -o gnustep-dev
   SHELL
 end
