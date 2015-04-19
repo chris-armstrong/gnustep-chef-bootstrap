@@ -115,3 +115,14 @@ xt_package = value_for_platform_family(
     [ 'debian' ] => 'libxt-dev'
 )
 package xt_package
+
+# X-WINDOW-SYSTEM - make a basic X Server, XDM, WM and terminal available
+if platform_family?('debian')
+    xwindowsystem_package = value_for_platform(
+        [ 'ubuntu' ] => { '14.04' => 'xserver-xorg' }
+    )
+    package xwindowsystem_package
+    package 'wmaker'
+    package 'xterm'
+    package 'xdm'
+end
