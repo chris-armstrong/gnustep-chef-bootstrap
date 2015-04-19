@@ -1,5 +1,24 @@
+#    download-source.rb - recipe to download source code for GNUstep
+#    Copyright (C) 2015  Chris Armstrong
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 require 'date'
 
+# Calculate snapshot time as yesterday in case we run this
+# recipe in a Asia Pacific timezone (which may be a day ahead
+# of U.S. timezones)
 yesterday = DateTime.now().prev_day()
 svn_snapshot_datestring = yesterday.strftime("%Y%m%d")
 
@@ -14,6 +33,8 @@ end
 
 log "downloading snapshot #{svn_snapshot_datestring}"
 
+# download, extract, upgrade and update SVN snapshots that
+# are needed
 [ 'core', 'dev-libs' ].each do | module_name |
 
 	module_filename = "#{module_name}.#{svn_snapshot_datestring}.tar.bz2"
@@ -44,14 +65,6 @@ log "downloading snapshot #{svn_snapshot_datestring}"
         user devel_user
         group devel_user
     end
-	#subversion "update_#{module_name}" do
-	#	destination module_extract_path
-	#	repository "http://svn.gna.org/svn/gnustep/modules/#{module_name}"
-    #    user devel_user
-        
-	#	action :sync
-	#end
-
 end
 
 
