@@ -24,26 +24,33 @@ log "downloading snapshot #{svn_snapshot_datestring}"
 		source snapshots_url+module_filename
 		not_if { ::File.exists?(module_extract_path) || ::File.exists?(module_filepath) }
 	end
-
-	bash "extract_#{module_name}" do
+    
+ 	bash "extract_#{module_name}" do
 		cwd ::File.dirname(module_filepath)
 		code <<-EOH
 			tar xjf #{module_filename} -C #{devel_dir}
 			cd #{module_extract_path}
-			svn upgrade
+			chown -R #{devel_user}.#{devel_user} .
+            sudo -u #{devel_user} svn --config-dir /home/#{devel_user}/.subversion upgrade
 		EOH
-        user devel_user
-        group devel_user
-		not_if { ::File.exists?(module_extract_path) }
+ 		not_if { ::File.exists?(module_extract_path) }
 	end
 
-	subversion "update_#{module_name}" do
-		destination module_extract_path
-		repository "http://svn.gna.org/svn/gnustep/modules/#{module_name}"
+    bash "update_#{module_name}" do
+        cwd module_extract_path
+        code <<-EOH
+            svn --config-dir /home/#{devel_user}/.subversion update
+        EOH
         user devel_user
+        group devel_user
+    end
+	#subversion "update_#{module_name}" do
+	#	destination module_extract_path
+	#	repository "http://svn.gna.org/svn/gnustep/modules/#{module_name}"
+    #    user devel_user
         
-		action :sync
-	end
+	#	action :sync
+	#end
 
 end
 
