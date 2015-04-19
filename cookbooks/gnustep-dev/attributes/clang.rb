@@ -1,6 +1,6 @@
 # binary_versions: the list of versions of clang for which packaged binaries are available
 default['clang']['binary_versions'] = value_for_platform(
-	[ 'ubuntu' ] => { '14.04' => [ '3.3', '3.4', '3.5' ] } # Ubuntu 14.04 clang-3.5 package has CMake installation issues
+	[ 'ubuntu' ] => { '14.04' => [ '3.3', '3.4', '3.5' ] } # Ubuntu 14.04 clang-3.5 package has CMake installation issues (see https://bugs.launchpad.net/ubuntu/+source/llvm/+bug/1387011)
 )
 # binary_default_version: the default version of a packaged binary of clang
 default['clang']['binary_default_version'] = value_for_platform(
